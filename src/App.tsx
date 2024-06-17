@@ -1,14 +1,18 @@
+import { BrowserRouter } from "react-router-dom";
+// ROUTER
+import Router from "src/Router/Router";
 // STYLES
 import ThemeProvider from "src/Components/ThemeProvider";
 import GlobalStyles from "src/Components/GlobalStyles.style";
 // PAGES
-import ViewCSV from "src/Pages/ViewCSV/ViewCSV";
 
 const App = () => {
 	return (
 		<ThemeProvider>
-			<GlobalStyles />
-			<ViewCSV />
+			<BrowserRouter>
+				<Router />
+				<GlobalStyles />
+			</BrowserRouter>
 		</ThemeProvider>
 	);
 };

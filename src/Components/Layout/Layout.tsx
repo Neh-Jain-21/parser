@@ -1,19 +1,19 @@
 import { Outlet } from "react-router-dom";
 import { Layout as AntLayout } from "antd";
+// STYLES
+import LayoutWrapper from "./Layout.style";
 
-const { Header, Content, Footer } = AntLayout;
+const { Header, Content } = AntLayout;
 
 const Layout = () => {
 	return (
-		<AntLayout>
-			<Header style={{ display: "flex", alignItems: "center" }}>CSV PARSER</Header>
+		<LayoutWrapper>
+			<Header className="header">CSV VIEWER</Header>
 
-			<Content style={{ padding: "0 48px" }}>
+			<Content className="content">
 				<Outlet />
 			</Content>
-
-			<Footer style={{ textAlign: "center" }}>{new Date().getFullYear()}</Footer>
-		</AntLayout>
+		</LayoutWrapper>
 	);
 };
 

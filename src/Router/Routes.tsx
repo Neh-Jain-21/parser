@@ -16,7 +16,10 @@ const publicRoutes: RouteObject[] = [
 			</Suspense>
 		),
 		children: [
-			...[{ path: "/", component: ViewCSV }].map((child) => ({
+			...[
+				{ path: "/", component: ViewCSV },
+				{ path: "/csv/view", component: ViewCSV },
+			].map((child) => ({
 				path: child.path,
 				element: (
 					<Suspense fallback={<LazyLoad />}>
