@@ -40,7 +40,7 @@ const ViewCSV = () => {
 	const [textForm] = Form.useForm<TextCSVType>();
 
 	const [activeTab, setActiveTab] = useState("1");
-	const [textFormColumns, setTextFormColumns] = useState([]);
+	const [textFormColumns] = useState([]);
 
 	const onFinish: FormProps<TextCSVType>["onFinish"] = (values) => {
 		const [headers, array] = csvToArr(values.csvText, delimiterForm.getFieldValue("delimiter"));
