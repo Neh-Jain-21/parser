@@ -5,5 +5,5 @@ export const csvToArr = (stringVal: string, splitter: string) => {
 
 	const objects = lines.map((line) => line.split(splitter).reduce((object, value, index) => ({ ...object, [headers[index]]: value.trim() }), {}));
 
-	return [headers, objects];
+	return { headers, objects };
 };
