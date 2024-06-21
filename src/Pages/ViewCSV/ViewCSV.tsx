@@ -7,7 +7,7 @@ import { csvToArr } from "src/Helpers/utils";
 // ICONS
 import { InboxOutlined } from "@ant-design/icons";
 // TYPES
-import { ColumnsType } from "antd/es/table";
+import { ColumnsType, ColumnType } from "antd/es/table";
 import { AnyObject } from "antd/es/_util/type";
 
 const { TextArea } = Input;
@@ -62,7 +62,7 @@ const FileForm = (props: FilePropsType) => {
 
 	return (
 		<Form name="fileCSV" initialValues={{ file: "" }} layout="vertical" autoComplete="off" onFinish={props.onFinish} onReset={props.onReset}>
-			<Form.Item label="CSV File" name="file" valuePropName="data" required getValueFromEvent={normFile} rules={[{ required: true, message: "Please upload one image." }]}>
+			<Form.Item label="CSV File" name="file" valuePropName="data" required getValueFromEvent={normFile} rules={[{ required: true, message: "Please select a csv file." }]}>
 				<Dragger accept=".csv" beforeUpload={() => false} maxCount={1}>
 					<p className="ant-upload-drag-icon">
 						<InboxOutlined />
@@ -119,8 +119,8 @@ const ViewCSV = () => {
 	};
 
 	const items: TabsProps["items"] = [
-		{ key: "1", label: "Text", children: <TextForm form={textForm} onFinish={onFinish} onReset={onReset} /> },
-		{ key: "2", label: "File", children: <FileForm form={fileForm} onFinish={onFileFormFinish} onReset={onReset} /> },
+		{ key: "1", label: "File", children: <FileForm form={fileForm} onFinish={onFileFormFinish} onReset={onReset} /> },
+		{ key: "2", label: "Text", children: <TextForm form={textForm} onFinish={onFinish} onReset={onReset} /> },
 	];
 
 	const handleOnchangeTab = (activeKey: string) => {
@@ -129,6 +129,7 @@ const ViewCSV = () => {
 		setDataSource([]);
 
 		textForm.resetFields();
+		fileForm.resetFields();
 	};
 
 	return (
@@ -141,7 +142,28 @@ const ViewCSV = () => {
 
 			<Tabs size="large" centered activeKey={activeTab} items={items} onChange={handleOnchangeTab} />
 
-			{columns.length > 0 && <Table size="small" rowKey={columns[0].title?.toString()} dataSource={dataSource} columns={columns} />}
+			{columns.length > 0 && (
+				<>
+					<p>Total Records - {dataSource.length}</p>
+
+					<Table
+						rowKey="#"
+						size="small"
+						scroll={{ x: true }}
+						dataSource={dataSource}
+						columns={[
+							{
+								title: "#",
+								key: "#",
+								dataIndex: "#",
+								sorter: {
+									compare: (a, b) => Number(a["#"]) - Number(b["#"]),
+								},
+							} as ColumnType<AnyObject>,
+						].concat(columns)}
+					/>
+				</>
+			)}
 		</ViewCSVWrapper>
 	);
 };
